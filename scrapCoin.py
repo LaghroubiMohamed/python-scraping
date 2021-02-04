@@ -1,3 +1,4 @@
+from tkinter.constants import END
 from bs4 import BeautifulSoup 
 from selenium import webdriver
 import time
@@ -33,7 +34,11 @@ class DataGetter ():
                 highList.append(item.findAll('td', class_='Py(10px) Pstart(10px)')[1].text)
                 lowList.append(item.findAll('td', class_='Py(10px) Pstart(10px)')[2].text)
             driver.quit
+            
+            self.output.delete('1.0',END)
+            self.output.insert("1.0",[str(i)+'\n'  for i in zip(dateList,highList,lowList)])
         except:
+            self.output.delete('1.0',END)
             print("check the internet access or verify the webdriver path")
             self.output.insert("1.0"," Oops! Something Went Wrong \n Please check your internet First and Try Again \n Or Contact Our Support ")
         return dateList,highList,lowList

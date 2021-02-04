@@ -42,23 +42,22 @@ class Intereface():
         def recieveData():
             self.datelist,self.highlist,self.lowlist = DataGetter(url="https://finance.yahoo.com/quote/"+currency.get()+"/history/",output=self.output).getdata()
             for i , date in enumerate(self.datelist):
-                self.datelist[i] = datetime.datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
-            return saveInCsv()
-        
-        def showData():
-            self.output.delete('1.0',END)
-            self.output.insert("1.0",[str(i)+'\n'  for i in zip(self.datelist,self.highlist,self.lowlist)])
+                try:
+                    self.datelist[i] = datetime.datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
+                except :
+                    print("")
+                return saveInCsv()
           
             
         def saveInCsv():
             fulldata=zip(self.datelist,self.highlist,self.lowlist)
             row0 = ['date','high','low']
             CSVSaver(filename='file.csv',dataTitleRow=row0,datalist=fulldata).SaveAsCSV()
-            return saveInDb(), showData()
+            
         
-        def saveInDb():
-            dataForDb= zip(self.datelist,self.highlist,self.lowlist)
-            DBHelper(data=dataForDb ,path="base.db").SaveIntoDb()
+        # def saveInDb():
+        #     dataForDb= zip(self.datelist,self.highlist,self.lowlist)
+        #     DBHelper(data=dataForDb ,path="base.db").SaveIntoDb()
             
                 
                 
