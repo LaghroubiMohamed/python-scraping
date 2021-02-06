@@ -3,7 +3,7 @@ from PIL import ImageTk, Image
 import requests 
 from scrapCoin import DataGetter
 from DataBaseHelper import CSVSaver, DBHelper
-import datetime
+from datetime import datetime
 
 
 
@@ -43,7 +43,7 @@ class Intereface():
             self.datelist,self.highlist,self.lowlist = DataGetter(url="https://finance.yahoo.com/quote/"+currency.get()+"/history/",output=self.output).getdata()
             for i , date in enumerate(self.datelist):
                 try:
-                    self.datelist[i] = datetime.datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
+                    self.datelist[i] = datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
                 except :
                     print("")
                 return saveInCsv()
