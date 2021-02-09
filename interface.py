@@ -42,11 +42,9 @@ class Intereface():
         def recieveData():
             self.datelist,self.highlist,self.lowlist = DataGetter(url="https://finance.yahoo.com/quote/"+currency.get()+"/history/",output=self.output).getdata()
             for i , date in enumerate(self.datelist):
-                try:
-                    self.datelist[i] = datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
-                except :
-                    print("")
-                return saveInCsv()
+                         self.datelist[i] = datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
+               
+            return saveInCsv()
           
             
         def saveInCsv():
