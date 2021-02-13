@@ -3,14 +3,12 @@ import csv
 class DBHelper:
     def __init__(self,data,path) :
         self.data=data
-        # self.high = high
-        # self.low=low
         self.path = path
         self.db=DbConnecter(self.path)
         
 
     def SaveIntoDb(self):
-        query = ('INSERT INTO coin1 (date,hight,low) VALUES (?,?,?)')
+        query = ('INSERT INTO coin (date,open,high,low,close) VALUES (?,?,?,?,?)')
         self.db.exec(query=query,data=self.data)
 
 class DbConnecter:

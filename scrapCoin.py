@@ -3,6 +3,9 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
 
+
+openList=[]
+closeList=[]
 dateList = []
 highList =[]
 lowList = []
@@ -33,17 +36,23 @@ class DataGetter ():
                 dateList.append( item.find('td', class_='Py(10px) Ta(start) Pend(10px)').text)
                 highList.append(item.findAll('td', class_='Py(10px) Pstart(10px)')[1].text)
                 lowList.append(item.findAll('td', class_='Py(10px) Pstart(10px)')[2].text)
+                openList.append(item.findAll('td', class_='Py(10px) Pstart(10px)')[0].text)
+                closeList.append(item.findAll('td', class_='Py(10px) Pstart(10px)')[3].text)
+                
+                
+                
             driver.quit
             
             self.output.delete('1.0',END)
-            self.output.insert("1.0",[str(i)+'\n'  for i in zip(dateList,highList,lowList)])
+            self.output.insert("1.0",[str(i)+'\n'  for i in zip(dateList,openList,highList,lowList,closeList)])
+            self.output.insert("1.0","Date              /  Open       /     High    /    Low     /     Close   \n ")
         except:
             self.output.delete('1.0',END)
             print("check the internet access or verify the webdriver path")
             self.output.insert("1.0"," Oops! Something Went Wrong \n Please check your internet First and Try Again \n Or Contact Our Support ")
-        return dateList,highList,lowList
+        return dateList,openList, highList,lowList,closeList
 
 
 # DataGetter(url='https://finance.yahoo.com/quote/BTC-USD/history/').getdata()
-# for item in zip( dateList,highList, lowList):
+# for item in zip( dateList,openList ,highList, lowList,closeList):
 #    print(item )

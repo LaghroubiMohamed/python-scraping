@@ -40,22 +40,22 @@ class Intereface():
 
         
         def recieveData():
-            self.datelist,self.highlist,self.lowlist = DataGetter(url="https://finance.yahoo.com/quote/"+currency.get()+"/history/",output=self.output).getdata()
+            self.datelist,self.openlist,self.highlist,self.lowlist,self.closelist = DataGetter(url="https://finance.yahoo.com/quote/"+currency.get()+"/history/",output=self.output).getdata()
             for i , date in enumerate(self.datelist):
                          self.datelist[i] = datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
                
-            return saveInCsv()
+            return saveInCsv() , saveInDb()
           
             
         def saveInCsv():
-            fulldata=zip(self.datelist,self.highlist,self.lowlist)
-            row0 = ['date','high','low']
+            fulldata=zip(self.datelist,self.openlist, self.highlist,self.lowlist,self.closelist)
+            row0 = ['date','open','high','low','close']
             CSVSaver(filename='file.csv',dataTitleRow=row0,datalist=fulldata).SaveAsCSV()
             
         
-        # def saveInDb():
-        #     dataForDb= zip(self.datelist,self.highlist,self.lowlist)
-        #     DBHelper(data=dataForDb ,path="base.db").SaveIntoDb()
+        def saveInDb():
+            dataForDb= zip(self.datelist,self.openlist,self.highlist,self.lowlist,self.closelist)
+            DBHelper(data=dataForDb ,path="base.db").SaveIntoDb()
             
                 
                 
@@ -65,19 +65,24 @@ class Intereface():
         self.getData_button.pack()
 
         #get a scrollbar
-        scroll = Scrollbar(root)
-        scroll.pack(side=RIGHT, fill=Y)
+        scrolly = Scrollbar(root)
+        scrolly.pack(side=RIGHT, fill=Y)
+        
+        scrollx = Scrollbar(root,orient=HORIZONTAL)
+        scrollx.pack(side=TOP, fill=X)
 
-        self.output = Text(root, height = 50,  
+        self.output = Text(root, height = 30,  
                     width = 52,  
                     bg = "light yellow",
                     wrap=NONE,
-                    yscrollcommand=scroll.set) 
+                    yscrollcommand=scrolly.set,
+                    xscrollcommand=scrollx.set) 
         self.output.insert('1.0',' welcome ')
         self.output.pack()
 
         # Configure the scrollbars
-        scroll.config(command=self.output.yview)
+        scrolly.config(command=self.output.yview)
+        scrollx.config(command=self.output.xview)
         root.mainloop()
 
 r= Intereface(title="Coin Scanner ", width=500,height=800)
