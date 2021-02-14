@@ -1,0 +1,13 @@
+library(gpl)
+library(readr)
+coin <- read_csv("Desktop/python scraping/file.csv",na = "-")
+View(coin)
+coin <- na.omit(coin)
+plot(x = coin$date , y = coin$mean, type = 'l', col='red')
+lines(x= coin$date, y = coin$high ,type = 'l', col='green')
+hist(coin$low)
+coin$date <- as.Date(coin$date,format= "%Y-%m-%d")
+is.numeric.Date(coin$date)
+typeof(coin)
+coin$mean <- rowMeans(coin[,c('high', 'low')], na.rm=TRUE)
+coin$mean
