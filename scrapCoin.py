@@ -38,7 +38,7 @@ class DataGetter ():
                 lowList.append(item.findAll('td', class_='Py(10px) Pstart(10px)')[2].text)
                 openList.append(item.findAll('td', class_='Py(10px) Pstart(10px)')[0].text)
                 closeList.append(item.findAll('td', class_='Py(10px) Pstart(10px)')[3].text)
-                
+         
                 
                 
             driver.quit
@@ -49,7 +49,7 @@ class DataGetter ():
         except:
             self.output.delete('1.0',END)
             print("check the internet access or verify the webdriver path")
-            self.output.insert("1.0"," Oops! Something Went Wrong \n Please check your internet First and Try Again \n Or Contact Our Support ")
+            self.output.insert("1.0"," Oops! Something Went Wrong \n Please check your internet access First and Try Again \n Or Contact Our Support ")
         return dateList,openList, highList,lowList,closeList
 
 

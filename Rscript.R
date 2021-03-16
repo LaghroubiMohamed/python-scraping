@@ -3,12 +3,19 @@ library(readr)
 coin <- read_csv("Desktop/python scraping/file.csv",na = "-")
 View(coin)
 coin <- na.omit(coin)
-plot(x = coin$date , y = coin$mean, type = 'l', col='red')
-lines(x= coin$date, y = coin$high ,type = 'l', col='green')
+plot(x = coin$date , y = coin$mean, type = 'l', col='green')
+lines(x= coin$date, y = coin$high ,type = 'l', col='red')
+lines(x= coin$date, y = coin$low ,type = 'l', col='orange')
+
 hist(coin$low)
-coin$date <- as.Date(coin$date,format= "%Y-%m-%d")
+
+coin[order(coin$date ),]
+
+
+coin$date <- as.Date(coin$date)
 is.numeric.Date(coin$date)
-typeof(coin)
+typeof(coin$high)
+head(coin$date)
 coin$mean <- rowMeans(coin[,c('high', 'low')], na.rm=TRUE)
 coin$mean
 
