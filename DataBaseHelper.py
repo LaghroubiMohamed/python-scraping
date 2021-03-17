@@ -1,5 +1,4 @@
 import sqlite3 as sql
-import csv
 class DBHelper:
     def __init__(self,data,path) :
         self.data=data
@@ -25,14 +24,7 @@ class DbConnecter:
 
 
 class CSVSaver():
-    def __init__(self, filename, dataTitleRow,datalist):
-        self.filename = filename
-        self.dataTitleRow = dataTitleRow
-        self.datalist = datalist
-
-    def SaveAsCSV(self):
-        with open(self.filename,'w',encoding="utf-8",newline='') as csvfile :
-            dataWriter = csv.writer(csvfile)
-            dataWriter.writerow(self.dataTitleRow)
-            for item in self.datalist:
-                dataWriter.writerow(item)
+    def __init__(self,path,dataframe):
+        self.path = path
+        self.dataframe = dataframe
+        self.dataframe.to_csv( self.path ,index = False, header=True)

@@ -1,10 +1,13 @@
+import csv
+from dataProcessing import DataProcessing
 from tkinter import *
 from PIL import ImageTk, Image
 import requests 
 from scrapCoin import DataGetter
 from DataBaseHelper import CSVSaver, DBHelper
 from datetime import datetime
-
+import pandas as pd
+import numpy as np
 
 
 class Intereface():
@@ -39,29 +42,14 @@ class Intereface():
         self.combo.pack()
 
         
-        def recieveData():
-            self.datelist,self.openlist,self.highlist,self.lowlist,self.closelist = DataGetter(url="https://finance.yahoo.com/quote/"+currency.get()+"/history/",output=self.output).getdata()
-            for i , date in enumerate(self.datelist):
-                         self.datelist[i] = datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
-               
-            return saveInCsv() , saveInDb()
-          
-            
-        def saveInCsv():
-            fulldata=zip(self.datelist,self.openlist, self.highlist,self.lowlist,self.closelist)
-            row0 = ['date','open','high','low','close']
-            CSVSaver(filename='file.csv',dataTitleRow=row0,datalist=fulldata).SaveAsCSV()
-            
-        
-        def saveInDb():
-            dataForDb= zip(self.datelist,self.openlist,self.highlist,self.lowlist,self.closelist)
-            DBHelper(data=dataForDb ,path="base.db").SaveIntoDb()
+        def startProcess():
+            DataProcessing(currency=currency,output=self.output)
             
                 
                 
         self.getData_button = Button(root, height = 2, 
                         width = 20,  
-                        text ="get Data",command=recieveData)
+                        text ="get Data",command=startProcess)
         self.getData_button.pack()
 
         #get a scrollbar
@@ -85,5 +73,5 @@ class Intereface():
         scrollx.config(command=self.output.xview)
         root.mainloop()
 
-r= Intereface(title="Coin Scanner ", width=500,height=800)
+Intereface= Intereface(title="Coin Scanner ", width=500,height=800)
 
