@@ -10,7 +10,7 @@ this is a simple script to scrap crypto-currencies data from finance.yahoo.com
 ## Getting Started
  you can start the programe interface in the file interface.py
  
-# You can creat your database by typing this : 
+# You can creat your database by typing this sql command below: 
 
  "CREATE TABLE "coin" ("date"	DATETIME,"open"	NUMERIC,"hight"	NUMERIC,"low"	NUMERIC,"close"	NUMERIC);"
 
