@@ -27,10 +27,10 @@ class DataProcessing():
         def dataTypeEditor():
             for  n , i in enumerate(self.highlist):
                 if i == '-':
-                    self.highlist[n]=0
-                    self.lowlist[n]=0  
-                    self.openlist[n]=0
-                    self.closelist[n]=0
+                    self.highlist[n]=np.nan
+                    self.lowlist[n]=np.nan  
+                    self.openlist[n]=np.nan
+                    self.closelist[n]=np.nan
                 else:
                     self.closelist[n]=float(self.closelist[n]) 
                     self.highlist[n]=float(self.highlist[n])
