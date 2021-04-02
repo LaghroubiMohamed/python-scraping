@@ -1,15 +1,7 @@
-import csv
 from dataProcessing import DataProcessing
 from tkinter import *
 from PIL import ImageTk, Image
 import requests 
-from scrapCoin import DataGetter
-from DataBaseHelper import CSVSaver, DBHelper
-from datetime import datetime
-import pandas as pd
-import numpy as np
-
-
 class Intereface():
     def __init__(self,title,width,height) :
 
@@ -59,8 +51,8 @@ class Intereface():
         scrollx = Scrollbar(root,orient=HORIZONTAL)
         scrollx.pack(side=TOP, fill=X)
 
-        self.output = Text(root, height = 30,  
-                    width = 52,  
+        self.output = Text(root, height = 32,  
+                    width = 66,  
                     bg = "light yellow",
                     wrap=NONE,
                     yscrollcommand=scrolly.set,

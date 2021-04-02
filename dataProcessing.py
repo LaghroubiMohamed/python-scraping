@@ -1,3 +1,4 @@
+
 from DataBaseHelper import CSVSaver, DBHelper
 from datetime import datetime
 
@@ -12,8 +13,6 @@ class DataProcessing():
         self.currency = currency
         self.output = output
         
-        
-         
         def dataReciever():
             self.datelist,self.openlist,self.highlist,self.lowlist,self.closelist = DataGetter(url="https://finance.yahoo.com/quote/"+self.currency.get()+"/history/",output=self.output).getdata()
             return dateFormater()
@@ -21,7 +20,7 @@ class DataProcessing():
             
         def dateFormater (): 
             for i , date in enumerate(self.datelist):
-                self.datelist[i] = datetime.strptime(date, '%b %d, %Y') 
+                self.datelist[i] = datetime.strptime(date, '%b %d, %Y')
             return dataTypeEditor()
             
         def dataTypeEditor():
@@ -40,7 +39,7 @@ class DataProcessing():
         
         def saveInCsv():
             dataDF = pd.DataFrame({'date': self.datelist,'high':self.highlist,'low': self.lowlist,'open':self.openlist, 'close':self.closelist})                              
-            CSVSaver(dataframe=dataDF,path='file.csv')
+            CSVSaver(dataframe=dataDF,path='data.csv')
             
         def saveInDb():
             dataForDb= zip(self.datelist,self.openlist,self.highlist,self.lowlist,self.closelist)
@@ -49,5 +48,3 @@ class DataProcessing():
            
             
         return dataReciever()
-    
-    
